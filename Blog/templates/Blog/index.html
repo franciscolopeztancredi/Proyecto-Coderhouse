@@ -1,0 +1,86 @@
+{% extends "Blog/padre.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+        <!-- Bloque principal del título -->
+
+        <header class="py-5 bg-light border-bottom mb-4">
+
+            <div class="container">
+
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">Entressga Intermedia del Proyecto Final</h1>
+                    <p class="lead mb-0">Francisco López Tancredi</p>
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="container">
+
+            <div class="row">
+
+                <!-- Bloque de entradas del blog -->
+                
+                <div class="col-lg-8">
+                    {% if not titulo %}
+                    
+                        {% for post in posts %}
+
+                            <div class="card mb-4">
+
+                                <a href="{% url 'post' post.num_entrada %}">
+                                    <img class="card-img-top" src="{{post.image}}" alt="..." style="width: 100%; max-height: 600px;">
+                                </a>
+
+                                <div class="card-body">
+                                    <div class="small text-muted">{{post.fecha}}</div>
+                                    <h2 class="card-title h4">{{post.titulo}}</h2>
+                                    <p class="card-text text-truncate">{{post.texto}}</p>
+                                    <a class="btn btn-primary mt-1" href="post/{{post.num_entrada}}">Leer más →</a>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        {% for i in post %}
+
+                            <div class="card mb-4">
+
+                                <a href="{% url 'post' i.num_entrada %}">
+                                    <img class="card-img-top" src="{{i.image}}" alt="..." style="width: 100%; max-height: 600px;">
+                                </a>
+
+                                <div class="card-body">
+                                    <div class="small text-muted">{{i.fecha}}</div>
+                                    <h2 class="card-title h4">{{i.titulo}}</h2>
+                                    <p class="card-text text-truncate">{{i.texto}}</p>
+                                    <a class="btn btn-primary mt-1" href="post/{{i.num_entrada}}">Leer más →</a>
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+                        
+                        <p style="margin-bottom: 24px">¿No encontraste lo que buscabas? <a href="{% url 'inicio' %}">Volver al inicio.</a></p>
+
+                    {% endif %}
+                            
+                </div>
+                
+                <!-- Bloque del costado -->
+
+                {% include "Blog/sidebar.html" %}
+
+            </div>
+        </div>
+
+{% endblock %}

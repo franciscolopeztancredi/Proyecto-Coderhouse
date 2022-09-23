@@ -1,0 +1,53 @@
+{% extends "Blog/padre.html" %}
+
+{% block contenido %}
+
+  <div class="col-lg-6" style="margin: auto">
+    <div class="card mt-5 mb-5">
+
+      <div class="card-header">
+        Nueva pregunta
+      </div>
+
+      <div class="card-body">
+        
+        <div class="input-group">
+
+          <form class="mb-2" method="POST" action="" style="width: 100%"> {% csrf_token %}
+
+            <table class="table">
+              <tbody>
+
+                <tr>
+                  <th>Nombre</th>
+                  <td><input type="text" name="nombre" value="" maxlength="100" required id="id_nombre" style="width: 100%" required></td>
+                </tr>
+
+                <tr>
+                  <th>E-Mail</th>
+                  <td><input type="email" name="email" value="" required id="email" style="width: 100%" required></td>
+                </tr>
+
+                <tr>
+                  <th>Telefono</th>
+                  <td><input type="number" name="telefono" placeholder="011 1234-5678" required id="telefono" style="width: 100%" required></td>
+                </tr>
+
+                <tr>
+                  <th>Pregunta</th>
+                  <td><textarea name="pregunta" rows="5" style="width: 100%;" required id="id_pregunta"></textarea></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <input class="btn mb-4" type="submit" value="Publicar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

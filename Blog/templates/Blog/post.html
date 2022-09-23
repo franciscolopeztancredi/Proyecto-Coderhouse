@@ -1,0 +1,106 @@
+{% extends "Blog/padre.html" %}
+
+{% block contenido %}
+
+  <div class="container mt-5">
+    
+    <div class="row">
+
+      <div class="col-lg-8">
+
+        {% if url <= postNum %}
+    
+            {% for post in posts %}
+
+                {% if url == post.num_entrada %}
+
+                    <article>
+
+                        <header class="mb-4">
+                            <h1 class="fw-bolder mb-1">{{post.titulo}}</h1>
+                            <div class="text-muted fst-italic mb-2">Publicado el {{post.fecha}}, por {{post.autor}}</div>
+                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{post.tags}}</a>
+                        </header>
+
+                        <figure class="mb-4">
+                            <img class="img-fluid rounded" src="{{post.image}}" alt="..." style="width: 100%;"/>
+                        </figure>
+
+                        <section class="mb-5">
+                            <p class="fs-5 mb-4" style="text-align: justify;">{{post.texto}}</p>
+                        </section>
+
+                    </article>
+
+                    <!-- Comments section-->
+
+                    <section class="mb-5">
+
+                        <div class="card bg-light">
+
+                            <div class="card-body">
+
+                                <form class="mb-2" method="POST" action=""> {% csrf_token %}
+                                        
+                                    <textarea class="form-control mb-3" rows="3" name="comentario" placeholder="{% if not post.comentarios.all %}La discusión todavía no ha empezado. Sé el primero en dejar tu comentario!{% else %}Únete a la discusión y añade tu comentario!{% endif %}"></textarea>
+
+                                        <input class="btn mb-4" type="submit" value="Comentar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
+
+                                </form>
+                                
+                                {% for comentario in post.comentarios.all %}
+
+                                    <div class="d-flex mt-3">
+
+                                        <div class="flex-shrink-0">
+                                            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                        </div>
+
+                                        <div class="ms-3">
+
+                                            <div style="font-weight: 500">
+                                                {{comentario.nombre}}
+                                                <p style="display: inline; font-weight: lighter; color: #0000008C">- {{comentario.fecha}}</p>
+                                            </div>
+
+                                            {{comentario.comentario}}
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </section>
+
+                {% endif %}
+
+            {% endfor %}
+        
+        {% else %}
+
+            <article>
+
+                <header class="mb-4">
+                    <h1 class="fw-bolder mb-1">No se ha encontrado el artículo buscado.</h1>
+                </header>
+
+                <section class="mb-5">
+                    <a href="{% url 'inicio' %}">
+                        <p class="fs-5 mb-4">Regresar al inicio</p>
+                    </a>
+                </section>
+
+            </article>
+        
+        {% endif %}
+        
+        </div>
+            <!-- Side widgets-->
+            {% include "Blog/sidebar.html" %}
+            
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+<div class="col-lg-4">
+
+
+    <!-- Buscar -->
+
+    <div class="card mb-4">
+
+        <div class="card-header">Buscar</div>
+
+        <div class="card-body">
+            <form class="input-group" action="{% url "buscarEntrada" %}" method="GET">
+                <input class="form-control" type="text" placeholder="Buscar entrada de blog por título..." aria-label="Enter search term..." aria-describedby="button-search" name="titulo"/>
+                <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Categorías -->
+
+    <!--
+    <div class="card mb-4">
+
+        <div class="card-header">Categorías</div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                {% for tag in tags %}
+
+                    <div class="col-sm-6">
+                        <ul class="list-unstyled mb-0">
+                            <li><a href="#!">{{tag}}</a></li>
+                        </ul>
+                    </div>                 
+
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    -->
+
+    <!-- Usuarios -->
+
+    <div class="card mb-4">
+
+        <div class="card-header">Usuarios: {{usuariosTotal}}</div>
+
+        <div class="card-body">
+
+            <form class="input-group" action="{% url "buscarUsuario" %}" method="GET">
+                <input class="form-control" type="text" placeholder="Buscar usuario..." aria-label="Enter search term..." aria-describedby="button-search" name="usuario"/>
+                <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
+            </form>
+
+            {% if busqueda %}
+
+                {% for i in usuario %}
+
+                    <div class="d-flex mt-3">
+
+                        <div class="flex-shrink-0">
+                            <img class="rounded-circle" src="https://dummyimage.com/32x32/ced4da/6c757d.jpg" alt="..." />
+                        </div>
+
+                        <div class="ms-3">
+                            <p style="vertical-align: middle; margin: 0px">{{i.username}}</p>
+                        </div>
+
+                    </div>
+            
+                {% endfor %}
+
+            {% else %}
+
+                {% for i in usuarios %}
+
+                    <div class="d-flex mt-3">
+
+                        <div class="flex-shrink-0">
+                            <img class="rounded-circle" src="https://dummyimage.com/32x32/ced4da/6c757d.jpg" alt="..." />
+                        </div>
+
+                        <div class="ms-3">
+                            <p style="vertical-align: middle; margin: 0px">{{i.username}}</p>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>

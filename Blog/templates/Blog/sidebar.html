@@ -8,7 +8,7 @@
         <div class="card-header">Buscar</div>
 
         <div class="card-body">
-            <form class="input-group" action="{% url "buscarEntrada" %}" method="GET">
+            <form class="input-group" action="{% url 'Blog:buscarEntrada' %}" method="GET">
                 <input class="form-control" type="text" placeholder="Buscar entrada de blog por título..." aria-label="Enter search term..." aria-describedby="button-search" name="titulo"/>
                 <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
             </form>
@@ -51,7 +51,7 @@
 
         <div class="card-body">
 
-            <form class="input-group" action="{% url "buscarUsuario" %}" method="GET">
+            <form class="input-group" action="{% url 'Blog:buscarUsuario' %}" method="GET">
                 <input class="form-control" type="text" placeholder="Buscar usuario..." aria-label="Enter search term..." aria-describedby="button-search" name="usuario"/>
                 <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
             </form>

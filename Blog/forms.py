@@ -1,23 +1,10 @@
-from socket import fromshare
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.forms import ModelForm
 from django import forms
-
 from Blog.models import *
 
 
 
-# Formulario de Registro de Usuarios
-class RegisterForm(UserCreationForm):
-  class Meta:
-    model = User
-    fields = ["username", "email", "password1", "password2"]
-
-
-
 # Formulario de Creación de Posts
-class PostForm(ModelForm):
+class PostForm(forms.ModelForm):
   class Meta:
     model = Post
     fields = '__all__'
@@ -25,7 +12,7 @@ class PostForm(ModelForm):
 
 
 # Formulario de Comentarios
-class ComentarioForm(ModelForm):
+class ComentarioForm(forms.ModelForm):
   class Meta:
     model = Comentario
     fields = ("nombre", "comentario")
@@ -33,7 +20,7 @@ class ComentarioForm(ModelForm):
 
 
 # Formulario de Preguntas
-class PreguntaForm(ModelForm):
+class PreguntaForm(forms.ModelForm):
   class Meta:
     model = Pregunta
     fields = '__all__'

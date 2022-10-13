@@ -71,14 +71,14 @@
 {% block navbar %}
 
     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="{% url 'inicio' %}">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'Blog:inicio' %}">Inicio</a></li>
         <li class="nav-item"><a class="nav-link" href="#!">Acerca de Mí</a></li>
         <li class="nav-item"><a class="nav-link" href="#!">Contacto</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
     </ul>
     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'register' %}">Registrarse</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a></li>
+      <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Blog:register' %}">Registrarse</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'Users:login' %}">Iniciar Sesión</a></li>
     </ul>
     
 {% endblock %}
@@ -129,7 +129,7 @@
 
       <div class="mt-4" style="margin-top: 10px !important">
         <div class="d-flex justify-content-center links">
-          <p style="color:white; margin-bottom: 10px !important">¿Ya tienes una cuenta?</p> <a href="{% url 'login' %}" class="ml-2" style="color: #FFFFFF8C;">Iniciar sesión</a>
+          <p style="color:white; margin-bottom: 10px !important">¿Ya tienes una cuenta?</p> <a href="{% url 'Users:login' %}" class="ml-2" style="color: #FFFFFF8C;">Iniciar sesión</a>
         </div>
       </div>
     </div>

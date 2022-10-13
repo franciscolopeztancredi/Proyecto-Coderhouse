@@ -2,17 +2,13 @@
 
 {% block contenido %}
 
-  <div class="container mt-5">
+    <div class="container mt-5">
     
-    <div class="row">
+        <div class="row">
 
-      <div class="col-lg-8">
+            <div class="col-lg-8">
 
-        {% if url <= postNum %}
-    
-            {% for post in posts %}
-
-                {% if url == post.num_entrada %}
+                {% if post %}
 
                     <article>
 
@@ -59,7 +55,11 @@
                                         <div class="ms-3">
 
                                             <div style="font-weight: 500">
-                                                {{comentario.nombre}}
+                                                {% if comentario.nombre != "AnonymousUser" %}
+                                                    {{comentario.nombre}}
+                                                {% else %}
+                                                    Usuario
+                                                {% endif %}
                                                 <p style="display: inline; font-weight: lighter; color: #0000008C">- {{comentario.fecha}}</p>
                                             </div>
 
@@ -72,35 +72,35 @@
                                 {% endfor %}
 
                             </div>
+
                         </div>
+
                     </section>
+                
+                {% else %}
 
+                    <article>
+
+                        <header class="mb-4">
+                            <h1 class="fw-bolder mb-1">No se ha encontrado el artículo buscado.</h1>
+                        </header>
+
+                        <section class="mb-5">
+                            <a href="{% url 'Blog:inicio' %}">
+                                <p class="fs-5 mb-4">Regresar al inicio</p>
+                            </a>
+                        </section>
+
+                    </article>
+                
                 {% endif %}
-
-            {% endfor %}
-        
-        {% else %}
-
-            <article>
-
-                <header class="mb-4">
-                    <h1 class="fw-bolder mb-1">No se ha encontrado el artículo buscado.</h1>
-                </header>
-
-                <section class="mb-5">
-                    <a href="{% url 'inicio' %}">
-                        <p class="fs-5 mb-4">Regresar al inicio</p>
-                    </a>
-                </section>
-
-            </article>
-        
-        {% endif %}
-        
-        </div>
+                
+            </div>
             <!-- Side widgets-->
             {% include "Blog/sidebar.html" %}
-            
+
+        </div>
+
     </div>
-</div>
+
 {% endblock %}

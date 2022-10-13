@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login, logout
-from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.admin.views.decorators import staff_member_required
 
 from datetime import datetime
 
@@ -26,26 +24,22 @@ def inicio(request):
 
 def entrada(request, num):
 
-  post = Post.objects.filter()
-  postNum = Post.objects.count()
-
-  url = int(request.path[-1])
-
   form = ComentarioForm()
-  contexto = {"hora": hora, "num": num, "posts": post, "url": url, "postNum": postNum, "form": form}
+  contexto = {"hora": hora, "form": form}
+
+  if 0 < num <= Post.objects.count():
+    post = Post.objects.get(id=num)
+    contexto["post"] = post
 
   if request.method == 'POST':
 
     form = ComentarioForm(request.POST)
-
-    print(form)
 
     if form.is_valid:
 
           informacion = form.cleaned_data
 
           comment = Comentario(nombre=request.user, comentario=informacion['comentario'], post=Post.objects.get(id=num))
-
           comment.save()
 
           return render(request, "Blog/post.html", contexto)
@@ -55,19 +49,24 @@ def entrada(request, num):
 
 
 def entradaNuevo(request):
-  num = Post.objects.count() + 1
-  form = PostForm()
 
-  contexto = {"hora": hora, "form": form, "num": num}
+  if request.user.is_superuser:
+    num = Post.objects.count() + 1
+    form = PostForm()
 
-  if request.method == "POST":
-    form = PostForm(request.POST)
+    contexto = {"hora": hora, "form": form, "num": num}
 
-    print(form)
-    if form.is_valid():
-      form.save()
+    if request.method == "POST":
+      form = PostForm(request.POST)
 
-      return redirect("inicio")
+      print(form)
+      if form.is_valid():
+        form.save()
+
+        return redirect("Blog:inicio")
+  else:
+
+    return redirect("Blog:inicio")
 
   return render(request, "Blog/publicar.html", contexto)
 
@@ -106,53 +105,6 @@ def usuarioBuscar(request):
 
 
 
-def registerPage(request):
-  
-  form = RegisterForm()
-
-  if request.method == "POST":
-    form = RegisterForm(request.POST)
-
-    if form.is_valid():
-      form.save()
-      user = form.cleaned_data.get("username")
-      messages.success(request, f"El usuario {user} ha sido registrado de forma exitosa.")
-
-      return redirect("login")
-
-  contexto = {"form": form}
-
-  return render(request, "Blog/register.html", contexto)
-
-
-
-def loginPage(request):
-
-  if request.method == "POST":
-    username = request.POST.get("username")
-    password = request.POST.get("password")
-
-    user = authenticate(request, username=username, password=password)
-
-    if user is not None:
-      login(request, user)
-      return redirect("inicio")
-    else:
-      messages.info(request, "Usuario o contraseña incorrecta")
-
-  contexto = {}
-  return render(request, "Blog/login.html", contexto)
-
-
-
-def logoutUser(request):
-  
-  logout(request)
-
-  return redirect("login")
-
-
-
 def contacto(request):
   form = PreguntaForm()
 
@@ -165,6 +117,6 @@ def contacto(request):
     if form.is_valid():
       form.save()
 
-      return redirect("inicio")
+      return redirect("Blog:inicio")
 
   return render(request, "Blog/contacto.html", contexto)

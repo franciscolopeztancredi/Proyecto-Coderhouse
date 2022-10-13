@@ -1,7 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import User
-
-
 
 # Clase Tag: Tags para encontrar posts rápido
 class Tag(models.Model):

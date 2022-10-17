@@ -1,0 +1,63 @@
+{% extends "Blog/padre.html" %}
+
+{% block contenido %}
+
+  <div class="col-lg-6" style="margin: auto">
+    <div class="card mt-5 mb-5">
+
+      <div class="card-header">
+        Nueva entrada de blog
+      </div>
+
+      <div class="card-body">
+        
+        <div class="input-group">
+
+          <form class="mb-2" method="POST" action="" style="width: 100%"> {% csrf_token %}
+
+            <table class="table">
+              <tbody>
+
+                <tr>
+                  <th>Fecha</th>
+                  <td><input type="date" name="fecha" value="" required id="id_fecha" style="width: 100%" required></td>
+                </tr>
+
+                <tr>
+                  <th>Título</th>
+                  <td><input type="text" name="titulo" value="" maxlength="50" required id="id_titulo" style="width: 100%" required></td>
+                </tr>
+
+                <tr>
+                  <th>Autor</th>
+                  <td><input type="text" name="autor" value="Francisco" maxlength="20" required id="id_autor" style="width: 100%" required></td>
+                </tr>
+                
+                <tr>
+                  <th>Imagen</th>
+                  <td><input type="url" name="image" value="" maxlength="200" required id="id_image" style="width: 100%" required></td>
+                </tr>
+
+                <tr>
+                  <th>Texto</th>
+                  <td><textarea name="texto" rows="5" style="width: 100%;" required id="id_texto"></textarea></td>
+                </tr>
+
+                <tr>
+                  <th>Número</th>
+                  <td><input type="number" name="num_entrada" value="{{num}}" id="id_num_entrada" style="width: 100%; border-style: none;" readonly></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <input class="btn mb-4" type="submit" value="Publicar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

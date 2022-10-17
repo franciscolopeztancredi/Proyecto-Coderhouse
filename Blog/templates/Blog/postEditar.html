@@ -6,7 +6,7 @@
     <div class="card mt-5 mb-5">
 
       <div class="card-header">
-        Nueva entrada de blog
+        Editar entrada de blog: {{post.titulo}}
       </div>
 
       <div class="card-body">
@@ -20,32 +20,27 @@
 
                 <tr>
                   <th>Fecha</th>
-                  <td><input type="date" name="fecha" value="" required id="id_fecha" style="width: 100%" required></td>
+                  <td><input type="date" name="fecha" value="{{post.fecha|date:"Y-m-d"}}" required id="id_fecha" style="width: 100%" required></td>
                 </tr>
 
                 <tr>
                   <th>Título</th>
-                  <td><input type="text" name="titulo" value="" maxlength="50" required id="id_titulo" style="width: 100%" required></td>
+                  <td><input type="text" name="titulo" value="{{post.titulo}}" maxlength="50" required id="id_titulo" style="width: 100%" required></td>
                 </tr>
 
                 <tr>
                   <th>Autor</th>
-                  <td><input type="text" name="autor" value="Francisco" maxlength="20" required id="id_autor" style="width: 100%" required></td>
-                </tr>
-
-                <tr>
-                  <th>Tags</th>
-                  <td>{{form.tags}}</td>
+                  <td><input type="text" name="autor" value="{{post.autor}}" maxlength="20" required id="id_autor" style="width: 100%" required></td>
                 </tr>
 
                 <tr>
                   <th>Imagen</th>
-                  <td><input type="url" name="image" value="" maxlength="200" required id="id_image" style="width: 100%" required></td>
+                  <td><input type="url" name="image" value="{{post.image}}" maxlength="200" required id="id_image" style="width: 100%" required></td>
                 </tr>
 
                 <tr>
                   <th>Texto</th>
-                  <td><textarea name="texto" rows="5" style="width: 100%;" required id="id_texto"></textarea></td>
+                  <td><input type="text" name="texto" value="{{post.texto}}" style="width: 100%;" required id="id_texto"></td>
                 </tr>
 
                 <tr>
@@ -56,7 +51,7 @@
               </tbody>
             </table>
 
-            <input class="btn mb-4" type="submit" value="Publicar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
+            <input class="btn mb-4" type="submit" value="Editar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
 
           </form>
 

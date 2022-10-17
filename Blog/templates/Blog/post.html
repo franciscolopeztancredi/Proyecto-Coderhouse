@@ -15,7 +15,6 @@
                         <header class="mb-4">
                             <h1 class="fw-bolder mb-1">{{post.titulo}}</h1>
                             <div class="text-muted fst-italic mb-2">Publicado el {{post.fecha}}, por {{post.autor}}</div>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{post.tags}}</a>
                         </header>
 
                         <figure class="mb-4">
@@ -23,7 +22,23 @@
                         </figure>
 
                         <section class="mb-5">
-                            <p class="fs-5 mb-4" style="text-align: justify;">{{post.texto}}</p>
+                            <p class="fs-5" style="text-align: justify;">{{post.texto}}</p>
+
+                            {% if request.user.is_superuser %}
+                                <div style="d-flex">
+
+                                    <p class="fs-6" style="text-align: right;">
+                                        <button style="border: 0px; background-color: transparent;">
+                                            <a href="{% url 'Blog:entradaEditar' post.num_entrada %}" style="color: #212529;">Editar</a>
+                                        </button>
+                                        
+                                        <button style="border: 0px; background-color: transparent;">
+                                            <a href="{% url 'Blog:entradaEliminar' post.num_entrada %}" style="color: #212529;">Eliminar</a>
+                                        </button>
+                                    </p>
+                                </div>
+                            {% endif %}
+
                         </section>
 
                     </article>
@@ -35,14 +50,18 @@
                         <div class="card bg-light">
 
                             <div class="card-body">
+                            
+                                <div>
+                                    
+                                    <form class="mb-2" method="POST" action=""> {% csrf_token %}
+                                            
+                                        <textarea class="form-control mb-2" rows="3" name="comentario" placeholder="{% if not post.comentarios.all %}La discusión todavía no ha empezado. Sé el primero en dejar tu comentario!{% else %}Únete a la discusión y añade tu comentario!{% endif %}"></textarea>
 
-                                <form class="mb-2" method="POST" action=""> {% csrf_token %}
-                                        
-                                    <textarea class="form-control mb-3" rows="3" name="comentario" placeholder="{% if not post.comentarios.all %}La discusión todavía no ha empezado. Sé el primero en dejar tu comentario!{% else %}Únete a la discusión y añade tu comentario!{% endif %}"></textarea>
+                                        <input class="btn" type="submit" value="Comentar" style="float: right; display: inline-block; background-color: #212529; color: white; padding: 8px 16px">
 
-                                        <input class="btn mb-4" type="submit" value="Comentar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
-
-                                </form>
+                                    </form>
+                                
+                                </div>
                                 
                                 {% for comentario in post.comentarios.all %}
 

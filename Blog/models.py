@@ -1,14 +1,5 @@
 from django.db import models
 
-# Clase Tag: Tags para encontrar posts rápido
-class Tag(models.Model):
-  tag = models.CharField(max_length=200)
-
-  def __str__(self):
-    return self.tag
-
-
-
 # Clase Post: Publicaciones dentro de mi blog
 class Post(models.Model):
 
@@ -16,7 +7,6 @@ class Post(models.Model):
   fecha = models.DateField()
   autor = models.CharField(max_length=20)
   image = models.URLField()
-  tags = models.ManyToManyField(Tag, blank=True)
   texto = models.TextField()
   num_entrada = models.IntegerField()
 
@@ -34,7 +24,7 @@ class Comentario(models.Model):
   post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE, related_name="comentarios")
 
   def __str__(self):
-    return f"{self.post}, {self.nombre}: {self.comentario}"
+    return f"[{self.post.titulo}] {self.nombre}: {self.comentario}"
 
 
 

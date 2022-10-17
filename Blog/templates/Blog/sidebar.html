@@ -8,40 +8,12 @@
         <div class="card-header">Buscar</div>
 
         <div class="card-body">
-            <form class="input-group" action="{% url 'Blog:buscarEntrada' %}" method="GET">
+            <form class="input-group" action="{% url 'Blog:entradaBuscar' %}" method="GET">
                 <input class="form-control" type="text" placeholder="Buscar entrada de blog por título..." aria-label="Enter search term..." aria-describedby="button-search" name="titulo"/>
                 <button class="btn btn-primary" id="button-search" type="submit">Ir</button>
             </form>
         </div>
     </div>
-
-
-
-    <!-- Categorías -->
-
-    <!--
-    <div class="card mb-4">
-
-        <div class="card-header">Categorías</div>
-
-        <div class="card-body">
-
-            <div class="row">
-
-                {% for tag in tags %}
-
-                    <div class="col-sm-6">
-                        <ul class="list-unstyled mb-0">
-                            <li><a href="#!">{{tag}}</a></li>
-                        </ul>
-                    </div>                 
-
-                {% endfor %}
-
-            </div>
-        </div>
-    </div>
-    -->
 
     <!-- Usuarios -->
 

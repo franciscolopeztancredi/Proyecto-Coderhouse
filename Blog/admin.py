@@ -4,7 +4,6 @@ from django.contrib import admin
 from Blog.models import *
 
 # Registro mis modelos
-admin.site.register(Tag)
 admin.site.register(Post)
 admin.site.register(Comentario)
 admin.site.register(Pregunta)

@@ -40,7 +40,7 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'Blog:contacto' %}">Contacto</a></li>
 
                         {% if request.user.is_superuser %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Blog:entradaNuevo' %}">Nueva Entrada</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Post:entradaNuevo' %}">Nueva Entrada</a></li>
                         {% endif %}
                         
                     </ul>
@@ -49,16 +49,19 @@
                 
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 
+                            <a href="{% url "Users:profile" %}" style="text-decoration: none;">
                             {% if hora >= 5 and hora < 12 %}
-                                <li class="nav-link">Buenos días, {{request.user}}</li>
+                                <li class="nav-link">Buenos días, 
 
                             {% elif hora >= 12 and hora < 20 %}
-                                <li class="nav-link">Buenas tardes, {{request.user}}</li>
+                                <li class="nav-link">Buenas tardes, 
 
                             {% else %}
-                                <li class="nav-link">Buenas noches, {{request.user}}</li>
-
+                                <li class="nav-link">Buenas noches, 
+                                
                             {% endif %}
+                            <span style="text-decoration: underline">{{request.user}}</span></li>
+                            </a>
 
                             <li class="nav-item"><a class="nav-link" href="{% url 'Users:logout' %}">Cerrar sesión</a></li>
 

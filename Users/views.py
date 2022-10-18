@@ -11,13 +11,18 @@ def registerPage(request):
 
   if request.method == "POST":
     form = RegisterForm(request.POST)
+    print(form)
 
     if form.is_valid():
       form.save()
       user = form.cleaned_data.get("username")
-      messages.success(request, f"El usuario {user} ha sido registrado de forma exitosa.")
-
-      return redirect("Users:login")
+      # messages.success(request, f"El usuario {user} ha sido registrado de forma exitosa.")
+      usuario = authenticate(username=form.cleaned_data["username"],
+                             password=form.cleaned_data["password1"],
+                             )
+      
+      login(request, usuario)
+      return redirect("Blog:inicio")
 
   contexto = {"form": form}
 
@@ -49,3 +54,15 @@ def logoutUser(request):
   logout(request)
 
   return redirect("Users:login")
+
+
+
+def profile(request):
+
+  user = request.user
+  
+  if request.method == "POST":
+    form = UserEditForm()
+
+  contexto = {"user": user}
+  return render(request, "Users/profile.html", contexto)

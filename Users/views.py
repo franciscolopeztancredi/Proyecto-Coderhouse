@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from Users.forms import *
+from datetime import datetime
 
 # Create your views here.
 def registerPage(request):
@@ -15,8 +17,7 @@ def registerPage(request):
 
     if form.is_valid():
       form.save()
-      user = form.cleaned_data.get("username")
-      # messages.success(request, f"El usuario {user} ha sido registrado de forma exitosa.")
+      
       usuario = authenticate(username=form.cleaned_data["username"],
                              password=form.cleaned_data["password1"],
                              )
@@ -57,12 +58,69 @@ def logoutUser(request):
 
 
 
+@login_required
 def profile(request):
 
-  user = request.user
+  usuario = request.user
+  formUser = UserEditForm(initial={"email": usuario.email, "first_name": usuario.first_name, 
+                                   "last_name": usuario.last_name,})
   
   if request.method == "POST":
-    form = UserEditForm()
 
-  contexto = {"user": user}
-  return render(request, "Users/profile.html", contexto)
+    if 'datos' in request.POST:
+      formUser = UserEditForm(request.POST)
+      
+      if formUser.is_valid():
+        
+        info = formUser.cleaned_data
+        print("info")
+        usuario.email = info["email"]
+        usuario.set_password(info["password1"])
+        usuario.first_name = info["first_name"]
+        usuario.last_name = info["last_name"]
+
+        usuario.save()
+
+        user = authenticate(username=usuario.username,
+                              password=formUser.cleaned_data["password1"],
+                              )
+        
+        login(request, user)
+
+        return redirect("Blog:inicio")
+      
+    elif 'avatar' in request.POST:
+      form = AvatarForm(request.POST, request.FILES)
+
+      if form.is_valid():
+
+        info = form.cleaned_data
+        print(info)
+        user = User.objects.get(username=request.user)
+
+        avatar = Avatar(usuario=user, imagen=info["imagen"])
+
+        if avatar == None:
+          avatar.save()
+        
+        else:
+          avatarViejo = Avatar.objects.get(usuario=user)
+          avatarViejo.delete()
+          
+          avatar.save()
+
+        return redirect("Blog:inicio")
+
+  return render(request, "Users/profile.html", {"formUser": formUser, "user": usuario, "hora": int(datetime.now().hour)})
+
+
+
+@login_required
+def avatarEliminar(request):
+
+  user = User.objects.get(username=request.user)
+
+  avatar = Avatar.objects.get(usuario=user)
+  avatar.delete()
+
+  return redirect("Blog:inicio")

@@ -51,10 +51,28 @@
                 {% for i in usuarios %}
 
                     <div class="d-flex mt-3">
+                        
+                        {% if i.avatar_set.first.imagen %}
+                
+                            {% with i.avatar_set.first as avatar %}
+                        
+                                {% if avatar %}
 
-                        <div class="flex-shrink-0">
-                            <img class="rounded-circle" src="https://dummyimage.com/32x32/ced4da/6c757d.jpg" alt="..." />
-                        </div>
+                                    <div class="flex-shrink-0">
+                                        <img src="{{avatar.imagen.url}}" style="height: 32px; border-radius: 100%; width: 32px;">
+                                    </div>
+
+                                {% endif %}
+
+                            {% endwith %}
+                        
+                        {% else %}
+
+                            <div class="flex-shrink-0">
+                                <img class="rounded-circle" src="https://dummyimage.com/32x32/ced4da/6c757d.jpg" alt="..." />
+                            </div>
+                        
+                        {% endif %}
 
                         <div class="ms-3">
                             <p style="vertical-align: middle; margin: 0px">{{i.username}}</p>

@@ -1,6 +1,108 @@
 {% extends "Blog/padre.html" %}
 
 {% block contenido %}
-<p>{{user.username}}</p>
-<p>{{user.email}}</p>
+
+  <div class="row">
+    <div class="card mt-5 mb-5 col-lg-4 p-0" style="margin: auto">
+
+      <div class="card-header">
+        Editar avatar del usuario: {{user}}
+      </div>
+      
+      <div class="card-body input-group">
+
+          <form class="mb-2" method="POST" action="" style="width: 100%" enctype="multipart/form-data"> {% csrf_token %}
+
+            <table class="table">
+              <tbody>
+
+                <tr>
+                  <th><label>Avatar actual:</th>
+                  <td>
+                    {% if user.avatar_set.first.imagen %}
+        
+                      {% with user.avatar_set.first as avatar %}
+            
+                        {% if avatar %}
+                    
+                        <img src="{{avatar.imagen.url}}" style="width: 100%">
+            
+                        {% endif %}
+                      
+                      {% endwith %}
+                    
+                    {% else %}
+
+                    <p style="margin: 0px; text-align: left">No se ha registrado un avatar.</p>
+
+                    {% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th><label for="id_imagen">Avatar nuevo:</label></th>
+                  <td><input type="file" name="imagen" accept="image/*" style="width: 100%" id="id_imagen"></td>
+                </tr>
+
+              </tbody>
+            </table>
+
+            <input class="btn" name="avatar" type="submit" value="Guardar avatar" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
+
+            <button class="btn btn-danger" style="display: block; height: 42px; float: right; margin-right: 5px; border: 0px; color: white; padding: 8px 16px;">
+              <a href="{% url 'Users:avatarEliminar' %}" style="color: white; text-decoration: none;">Eliminar</a>
+            </button>
+
+          </form>
+      </div>
+
+    </div>
+
+    <div class="card mt-5 mb-5 col-lg-6 p-0" style="margin-right: auto; margin-left: 0px;">
+
+      <div class="card-header" style="width: 100%;">
+        Editar datos del usuario: {{user}}
+      </div>
+      
+      <div class="card-body input-group">
+        <form class="mb-2" method="POST" action="" style="width: 100%"> {% csrf_token %}
+
+          <table class="table">
+            <tbody>
+
+              <tr>
+                <th><label for="id_email">Correo electrónico:</label></th>
+                <td><input type="email" name="email" value="{{user.email}}" maxlength="254" style="width: 100%" id="id_email"></td>
+              </tr>
+              
+              <tr>
+                <th><label for="id_first_name">Nombre:</label></th>
+                <td><input type="text" name="first_name" value="{{user.first_name}}" style="width: 100%" maxlength="150" id="id_first_name"></td>
+              </tr>
+              
+              <tr>
+                <th><label for="id_last_name">Apellido(s):</label></th>
+                <td><input type="text" name="last_name" value="{{user.last_name}}" style="width: 100%" maxlength="150" id="id_last_name"></td>
+              </tr>
+
+              <tr>
+                <th><label for="id_password1">Contraseña:</label></th>
+                <td><input type="password" name="password1" autocomplete="new-password" style="width: 100%" required id="id_password1"></td>
+              </tr>
+              
+              <tr>
+                <th><label for="id_password2">Contraseña (confirmación):</label></th>
+                <td><input type="password" name="password2" autocomplete="new-password" style="width: 100%" required id="id_password2"></td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <input class="btn mb-4" type="submit" name="datos" value="Guardar cambios" style="display: block; float: right; background-color: #212529; color: white; padding: 8px 16px">
+          
+        </form>
+      </div>
+      
+    </div>
+  </div>
 {% endblock %}

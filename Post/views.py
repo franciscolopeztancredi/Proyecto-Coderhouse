@@ -31,6 +31,8 @@ def entrada(request, num):
 
   return render(request, "Post/post.html", contexto)
 
+
+
 def entradaNuevo(request):
 
   if request.user.is_superuser:
@@ -55,6 +57,8 @@ def entradaNuevo(request):
 
   return render(request, "Post/postCrear.html", contexto)
 
+
+
 def entradaBuscar(request):
 
   usuarios = User.objects.all()
@@ -68,6 +72,8 @@ def entradaBuscar(request):
     contexto["post"] = Post.objects.filter(titulo__icontains=request.GET["titulo"])
 
     return render(request, "Blog/index.html", contexto)
+
+
 
 @staff_member_required
 def entradaEditar(request, num):
@@ -100,6 +106,8 @@ def entradaEditar(request, num):
   
   contexto = {"hora": int(datetime.now().hour), "form": form, "num": num_total, "post": post}
   return render(request, "Post/postEditar.html", contexto)
+
+
 
 @staff_member_required
 def entradaEliminar(request, num):

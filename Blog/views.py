@@ -12,6 +12,8 @@ from Blog.forms import *
 
 hora = int(datetime.now().hour)
 
+
+
 def inicio(request):
 
   usuarios = User.objects.all()
@@ -19,6 +21,8 @@ def inicio(request):
 
   contexto = {"hora": hora, "usuarios": usuarios, "usuariosTotal": usuarios.count(), "posts": posts}
   return render(request, "Blog/index.html", contexto)
+
+
 
 def usuarioBuscar(request):
 
@@ -32,6 +36,8 @@ def usuarioBuscar(request):
     contexto["usuario"] = User.objects.filter(username__icontains=request.GET["usuario"])
 
     return render(request, "Blog/index.html", contexto)
+
+
 
 @login_required
 def contacto(request):
@@ -50,7 +56,9 @@ def contacto(request):
 
   return render(request, "Blog/contacto.html", contexto)
 
+
+
 @login_required
 def about(request):
 
-  return render(request, "Blog/about.html")
+  return render(request, "Blog/about.html", {"hora": hora})

@@ -1,150 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
+<head>
 
-        {% load static %}
+    {% load static %}
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-        <title>proyectoCoder</title>
+    <title>proyectoCoder</title>
 
-        <link rel="icon" type="image/x-icon" href=" {% if user.avatar_set.first.imagen %}
-                                                        {% with user.avatar_set.first as avatar %}
-                                                            {% if avatar %}
-                                                                {{avatar.imagen.url}}
-                                                            {% endif %}
-                                                        {% endwith %}
-                                                    {% else %}
-                                                        {% static 'Blog/assets/favicon.ico' %}
-                                                    {% endif %}
-                                                    "/>
-        <link href="{% static 'Blog/css/styles.css' %}" rel="stylesheet" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="{% static 'Blog/css/styles.css' %}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href=" {% if user.avatar_set.first.imagen %}
+                                                    {% with user.avatar_set.first as avatar %}
+                                                        {% if avatar %}{{avatar.imagen.url}}{% endif %}
+                                                    {% endwith %}
+                                                {% else %}
+                                                    {% static 'Blog/assets/favicon.ico' %}
+                                                {% endif %}"/>
 
-    </head>
+</head>
 
-    <body>
-        
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
-            <div class="container">
+        <div class="container">
 
-                <a class="navbar-brand" href="{% url 'Blog:inicio' %}">
-                    
-                    {% if user.avatar_set.first.imagen %}
+            <a class="navbar-brand" href="{% url 'Blog:inicio' %}">
+                
+                {% if user.avatar_set.first.imagen %}
 
-                        {% with user.avatar_set.first as avatar %}
-                        
-                            {% if avatar %}
-
-                                <img src="{{avatar.imagen.url}}" class="me-2" style="height: 32px; width: 32px; border-radius: 100%; box-shadow: 2px 2px 5px black;">
-
-                            {% endif %}
-
-                        {% endwith %}
-                    
-                    {% else %}
-
-                        <img class="me-2" src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' fill='none' stroke-linecap='round' stroke-width='1.2' stroke-linejoin='round'%3e%3cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3e%3cpath d='M4.083 5h10.834a1.08 1.08 0 0 1 1.083 1.077v8.615c0 2.38 -1.94 4.308 -4.333 4.308h-4.334c-2.393 0 -4.333 -1.929 -4.333 -4.308v-8.615a1.08 1.08 0 0 1 1.083 -1.077' /%3e%3cpath d='M16 8h2.5c1.38 0 2.5 1.045 2.5 2.333v2.334c0 1.288 -1.12 2.333 -2.5 2.333h-2.5' /%3e%3c/svg%3e" alt="" height="32px" style="margin-top: -4px">
-
-                    {% endif %}
-
-                    proyectoCoder
-
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Blog:inicio' %}">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Blog:about' %}">Acerca de Mí</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Blog:contacto' %}">Contacto</a></li>
-
-                        {% if request.user.is_superuser %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'Post:entradaNuevo' %}">Nueva Entrada</a></li>
+                    {% with user.avatar_set.first as avatar %}
+                        {% if avatar %}
+                            <img src="{{avatar.imagen.url}}" class="me-2" style="height: 32px; width: 32px; border-radius: 100%; box-shadow: 2px 2px 5px black;">
                         {% endif %}
-                        
+                    {% endwith %}
+                
+                {% else %}
+
+                    <img class="me-2" src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='white' fill='none' stroke-linecap='round' stroke-width='1.2' stroke-linejoin='round'%3e%3cpath stroke='none' d='M0 0h24v24H0z' fill='none'/%3e%3cpath d='M4.083 5h10.834a1.08 1.08 0 0 1 1.083 1.077v8.615c0 2.38 -1.94 4.308 -4.333 4.308h-4.334c-2.393 0 -4.333 -1.929 -4.333 -4.308v-8.615a1.08 1.08 0 0 1 1.083 -1.077' /%3e%3cpath d='M16 8h2.5c1.38 0 2.5 1.045 2.5 2.333v2.334c0 1.288 -1.12 2.333 -2.5 2.333h-2.5' /%3e%3c/svg%3e" alt="" height="32px" style="margin-top: -4px">
+
+                {% endif %}
+
+                proyectoCoder
+
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Blog:inicio' %}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Blog:about' %}">Acerca de Mí</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Blog:contacto' %}">Contacto</a></li>
+
+                    {% if request.user.is_superuser %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'Post:entradaNuevo' %}">Nueva Entrada</a></li>
+                    {% endif %}
+                    
+                </ul>
+
+                {% if request.user.is_authenticated %}
+            
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <div class="btn-group">
+
+                            <button type="button" style="color: #ffffff8c; border: 0px;" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                <li style="display: inline; padding-right: 0px;" class="nav-link">
+
+                                    {% if hora >= 5 and hora < 12 %}Buenos días,
+                                    {% elif hora >= 12 and hora < 20 %}Buenas tardes,
+                                    {% else %}Buenas noches,
+                                    {% endif %}
+                                    
+                                    <span style="text-decoration: underline">
+                                    {% if request.user.first_name == "" %}{{request.user}}
+                                    {% else %}{{request.user.first_name}}
+                                    {% endif %}
+                                    </span>
+                                
+                                </li>
+
+                            </button>
+
+                            <ul class="dropdown-menu dropdown-menu-end" style="background: rgba(33, 37, 41, 0.9);">
+                                <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:profile' %}">Editar Usuario</a></li>
+                                <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:logout' %}">Cerrar sesión</a></li>
+                            </ul>
+
+                        </div>
                     </ul>
 
-                    {% if request.user.is_authenticated %}
-                
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                {% else %}
 
-                            <div class="btn-group">
-                                <button type="button" style="color: #ffffff8c; border: 0px;" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Users:register' %}">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Users:login' %}">Iniciar sesión</a></li>
+                    </ul>
 
-                                        {% if hora >= 5 and hora < 12 %}
-                                            <li style="display: inline; padding-right: 0px;" class="nav-link">Buenos días, 
-            
-                                        {% elif hora >= 12 and hora < 20 %}
-                                            <li style="display: inline; padding-right: 0px;" class="nav-link">Buenas tardes, 
-            
-                                        {% else %}
-                                            <li style="display: inline; padding-right: 0px;" class="nav-link">Buenas noches, 
-                                            
-                                        {% endif %}
-                                        
-                                        {% if request.user.first_name == "" %}
-                                            <span style="text-decoration: underline">{{request.user}}</span></li>
-                                        {% else %}
-                                            <span style="text-decoration: underline">{{request.user.first_name}}</span></li>
-                                        {% endif %}
+                {% endif %}
 
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" style="background: rgba(33, 37, 41, 0.9);">
-                                    <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:profile' %}">Editar Usuario</a></li>
-                                    <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:logout' %}">Cerrar sesión</a></li>
-                                </ul>
-
-                              </div>
-
-                            
-                            
-
-                        </ul>
-                        
-                        </span>
-
-                    {% else %}
-
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Users:register' %}">Registrarse</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'Users:login' %}">Iniciar sesión</a></li>
-                            
-                        </ul>
-
-                    {% endif %}
-
-                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
 
 
 
-        {% block contenido %}
-
-        {% endblock %}
-
+    {% block contenido %}
+    {% endblock %}
 
 
-        <footer class="py-5 bg-dark">
 
-            <div class="container">
-                <p class="m-0 text-center text-white">Copyright &copy; Francisco López Tancredi 2022</p>
-            </div>
-            
-        </footer>
+    <footer class="py-5 bg-dark">
 
-        <script src="{% static 'Blog/js/scripts.js' %}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Francisco López Tancredi 2022</p>
+        </div>
         
-    </body>
+    </footer>
+
+    <script src="{% static 'Blog/js/scripts.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
+</body>
 </html>

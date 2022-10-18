@@ -9,23 +9,23 @@ from datetime import datetime
 # Create your views here.
 def registerPage(request):
   
-  form = RegisterForm()
+  formRegister = RegisterForm()
 
   if request.method == "POST":
-    form = RegisterForm(request.POST)
-    print(form)
+    formRegister = RegisterForm(request.POST)
+    print(formRegister)
 
-    if form.is_valid():
-      form.save()
+    if formRegister.is_valid():
+      formRegister.save()
       
-      usuario = authenticate(username=form.cleaned_data["username"],
-                             password=form.cleaned_data["password1"],
+      usuario = authenticate(username=formRegister.cleaned_data["username"],
+                             password=formRegister.cleaned_data["password1"],
                              )
       
       login(request, usuario)
       return redirect("Blog:inicio")
 
-  contexto = {"form": form}
+  contexto = {"form": formRegister}
 
   return render(request, "Users/register.html", contexto)
 
@@ -62,6 +62,7 @@ def logoutUser(request):
 def profile(request):
 
   usuario = request.user
+  formAvatar = AvatarForm()
   formUser = UserEditForm(initial={"email": usuario.email, "first_name": usuario.first_name, 
                                    "last_name": usuario.last_name,})
   
@@ -90,11 +91,11 @@ def profile(request):
         return redirect("Blog:inicio")
       
     elif 'avatar' in request.POST:
-      form = AvatarForm(request.POST, request.FILES)
+      formAvatar = AvatarForm(request.POST, request.FILES)
 
-      if form.is_valid():
+      if formAvatar.is_valid():
 
-        info = form.cleaned_data
+        info = formAvatar.cleaned_data
         print(info)
         user = User.objects.get(username=request.user)
 
@@ -111,7 +112,7 @@ def profile(request):
 
         return redirect("Blog:inicio")
 
-  return render(request, "Users/profile.html", {"formUser": formUser, "user": usuario, "hora": int(datetime.now().hour)})
+  return render(request, "Users/profile.html", {"formUser": formUser, "formAvatar": formAvatar, "user": usuario, "hora": int(datetime.now().hour)})
 
 
 

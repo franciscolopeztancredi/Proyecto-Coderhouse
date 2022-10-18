@@ -58,7 +58,6 @@ def contacto(request):
 
 
 
-@login_required
 def about(request):
 
   return render(request, "Blog/about.html", {"hora": hora})

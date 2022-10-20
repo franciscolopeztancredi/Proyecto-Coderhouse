@@ -3,13 +3,15 @@ from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 
 from Post.models import *
+
 from Post.forms import *
 from datetime import datetime
 # Create your views here.
 def entrada(request, num):
 
   form = ComentarioForm()
-  contexto = {"hora": int(datetime.now().hour), "form": form}
+  usuarios = User.objects.all()
+  contexto = {"hora": int(datetime.now().hour), "form": form, "usuarios": usuarios, "usuariosTotal": usuarios.count()}
 
   if 0 < num <= Post.objects.count():
     post = Post.objects.get(num_entrada=num)

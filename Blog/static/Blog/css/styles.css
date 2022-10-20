@@ -11300,3 +11300,22 @@ th {
 td {
   text-align: right;
 }
+
+header.masthead {
+  position: relative;
+  background: no-repeat right top;
+  background-size: cover;
+  background-color: #6c757d;
+  background-attachment: scroll;
+}
+
+header.masthead:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #252529;
+  opacity: 0.6;
+}

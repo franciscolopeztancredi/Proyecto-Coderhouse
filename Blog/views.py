@@ -41,18 +41,24 @@ def usuarioBuscar(request):
 
 @login_required
 def contacto(request):
-  form = PreguntaForm()
+  formPregunta = PreguntaForm()
+  preguntas = Pregunta.objects.all()
 
-  contexto = {"hora": hora, "form": form}
+  contexto = {"hora": hora, "form": formPregunta, "preguntas": preguntas}
 
   if request.method == "POST":
-    form = PreguntaForm(request.POST)
+    formPregunta = PreguntaForm(request.POST)
 
-    print(form)
-    if form.is_valid():
-      form.save()
+    print(formPregunta)
+    if formPregunta.is_valid():
+      print("hola")
+    
+      info = formPregunta.cleaned_data
 
-      return redirect("Blog:inicio")
+      pregunta = Pregunta(usuario = request.user, telefono=info['telefono'], pregunta=info['pregunta'])
+      pregunta.save()
+
+      return redirect("Blog:contacto")
 
   return render(request, "Blog/contacto.html", contexto)
 

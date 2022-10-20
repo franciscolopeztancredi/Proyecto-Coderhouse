@@ -8,8 +8,26 @@
       margin: 0;
       padding: 0;
       height: 90.4%;
-      background: #f8f9fa !important;
+      background-image: url(https://static.wixstatic.com/media/nsplsh_4d534e385446684a306973~mv2_d_5184_3456_s_4_2.jpg/v1/fill/w_1976,h_756,al_c,q_90/nsplsh_4d534e385446684a306973~mv2_d_5184_3456_s_4_2.webp);
+      background-size: cover;
+      background-position: center;
     }
+
+    html:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: #252529;
+      opacity: 0.6;
+    }
+
+    footer.pie {
+      position: relative;
+    }
+
     .user_card {
       width: 350px;
       margin-top: auto;
@@ -68,24 +86,9 @@
 
 {% load static %}
 
-{% block navbar %}
-
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link" href="{% url 'Blog:inicio' %}">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="#!">Acerca de Mí</a></li>
-        <li class="nav-item"><a class="nav-link" href="#!">Contacto</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-    </ul>
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'Blog:register' %}">Registrarse</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'Users:login' %}">Iniciar Sesión</a></li>
-    </ul>
-    
-{% endblock %}
-
 {% block contenido %}
 
-<div class="container h-100">
+<div class="container h-100 masthead">
   <div class="d-flex justify-content-center h-100">
     <div class="user_card">
       <div class="d-flex justify-content-center">
@@ -94,24 +97,28 @@
       <div class="d-flex justify-content-center form_container">
 
         <form method="POST" action=""> {% csrf_token %}
+
           <div class="input-group mb-2">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fas fa-user"></i></span>
             </div>
             {{form.username}}
           </div>
+
           <div class="input-group mb-2">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fas fa-envelope-square"></i></span>
             </div>
             {{form.email}}
           </div>
+
           <div class="input-group mb-2">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fas fa-key"></i></span>
             </div>
             {{form.password1}}
           </div>
+          
           <div class="input-group mb-2">
             <div class="input-group-append">
               <span class="input-group-text"><i class="fas fa-key"></i></span>

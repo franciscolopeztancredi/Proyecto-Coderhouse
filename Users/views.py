@@ -74,7 +74,6 @@ def profile(request):
       if formUser.is_valid():
         
         info = formUser.cleaned_data
-        print("info")
         usuario.email = info["email"]
         usuario.set_password(info["password1"])
         usuario.first_name = info["first_name"]
@@ -88,7 +87,7 @@ def profile(request):
         
         login(request, user)
 
-        return redirect("Blog:inicio")
+        return redirect("Users:profile")
       
     elif 'avatar' in request.POST:
       formAvatar = AvatarForm(request.POST, request.FILES)
@@ -96,21 +95,20 @@ def profile(request):
       if formAvatar.is_valid():
 
         info = formAvatar.cleaned_data
-        print(info)
         user = User.objects.get(username=request.user)
 
         avatar = Avatar(usuario=user, imagen=info["imagen"])
 
-        if avatar == None:
-          avatar.save()
-        
-        else:
+        try:
           avatarViejo = Avatar.objects.get(usuario=user)
           avatarViejo.delete()
           
           avatar.save()
+          
+        except:
+          avatar.save()
 
-        return redirect("Blog:inicio")
+        return redirect("Users:profile")
 
   return render(request, "Users/profile.html", {"formUser": formUser, "formAvatar": formAvatar, "user": usuario, "hora": int(datetime.now().hour)})
 
@@ -119,9 +117,39 @@ def profile(request):
 @login_required
 def avatarEliminar(request):
 
-  user = User.objects.get(username=request.user)
-
-  avatar = Avatar.objects.get(usuario=user)
+  avatar = Avatar.objects.get(usuario=request.user)
   avatar.delete()
 
-  return redirect("Blog:inicio")
+  return redirect("Users:profile")
+
+
+
+@login_required
+def mensajes(request):
+
+  mensajes = Mensajes.objects.all()
+  formMensaje = MensajesForm()
+
+  if request.method == 'POST':
+
+    formMensaje = MensajesForm(request.POST)
+    print(formMensaje)
+
+    if formMensaje.is_valid:
+
+      info = formMensaje.cleaned_data
+
+      mensaje = Mensajes(usuario = request.user, mensaje=info['mensaje'], numero=(mensajes.count()+1))
+      mensaje.save()
+
+      return render(request, "Users/messages.html", {"mensajes": mensajes, "form": formMensaje, "hora": int(datetime.now().hour)})
+  return render(request, "Users/messages.html", {"mensajes": mensajes, "form": formMensaje, "hora": int(datetime.now().hour)})
+
+
+
+@login_required
+def mensajesEliminar(request, num):
+  mensaje = Mensajes.objects.get(numero=num)
+  mensaje.delete()
+
+  return redirect("Users:mensajes")

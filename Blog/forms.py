@@ -5,4 +5,4 @@ from Blog.models import *
 class PreguntaForm(forms.ModelForm):
   class Meta:
     model = Pregunta
-    fields = '__all__'
+    fields = ["telefono", "pregunta"]

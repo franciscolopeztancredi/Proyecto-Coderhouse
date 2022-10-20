@@ -8,3 +8,15 @@ class Avatar(models.Model):
 
   def __str__(self):
     return f"Avatar de {self.usuario}"
+
+class Mensajes(models.Model):
+  usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+  fecha = models.DateTimeField(auto_now_add=True)
+  mensaje = models.TextField()
+  numero = models.IntegerField(null=True)
+
+  class Meta:
+    verbose_name_plural = "Mensajes"
+  
+  def __str__(self):
+    return f"{self.usuario}: {self.mensaje}"

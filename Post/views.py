@@ -33,27 +33,22 @@ def entrada(request, num):
 
 
 
+@staff_member_required
 def entradaNuevo(request):
 
-  if request.user.is_superuser:
+  num = Post.objects.count() + 1
+  form = PostForm()
 
-    num = Post.objects.count() + 1
-    form = PostForm()
+  contexto = {"hora": int(datetime.now().hour), "form": form, "num": num}
 
-    contexto = {"hora": int(datetime.now().hour), "form": form, "num": num}
+  if request.method == "POST":
+    form = PostForm(request.POST)
 
-    if request.method == "POST":
-      form = PostForm(request.POST)
+    print(form)
+    if form.is_valid():
+      form.save()
 
-      print(form)
-      if form.is_valid():
-        form.save()
-
-        return redirect("Blog:inicio")
-
-  else:
-
-    return redirect("Blog:inicio")
+      return redirect("Blog:inicio")
 
   return render(request, "Post/postCrear.html", contexto)
 

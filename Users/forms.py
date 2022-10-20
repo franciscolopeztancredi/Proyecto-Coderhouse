@@ -18,3 +18,8 @@ class AvatarForm(forms.ModelForm):
   class Meta:
     model = Avatar
     fields = ["imagen"]
+
+class MensajesForm(forms.ModelForm):
+  class Meta:
+    model = Mensajes
+    fields = ["mensaje"]

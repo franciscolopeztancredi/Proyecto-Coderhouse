@@ -50,26 +50,50 @@
                         <div class="card bg-light">
 
                             <div class="card-body">
+
+                                {% if request.user.is_authenticated %}
                             
                                 <div>
                                     
                                     <form class="mb-2" method="POST" action=""> {% csrf_token %}
-                                            
-                                        <textarea class="form-control mb-2" rows="3" name="comentario" placeholder="{% if not post.comentarios.all %}La discusión todavía no ha empezado. Sé el primero en dejar tu comentario!{% else %}Únete a la discusión y añade tu comentario!{% endif %}"></textarea>
 
-                                        <input class="btn" type="submit" value="Comentar" style="float: right; display: inline-block; background-color: #212529; color: white; padding: 8px 16px">
+                                            <textarea class="form-control mb-2" rows="3" name="comentario" placeholder="{% if not post.comentarios.all %}La discusión todavía no ha empezado. Sé el primero en dejar tu comentario!{% else %}Únete a la discusión y añade tu comentario!{% endif %}"></textarea>
+
+                                            <input class="btn" type="submit" value="Comentar" style="float: right; display: inline-block; background-color: #212529; color: white; padding: 8px 16px">
 
                                     </form>
                                 
                                 </div>
+
+                                {% else %}
+
+                                <div style="font-weight: 500">
+                                    Comentarios:
+                                </div>
+                                
+                                {% endif %}
                                 
                                 {% for comentario in post.comentarios.all %}
 
                                     <div class="d-flex mt-3">
 
-                                        <div class="flex-shrink-0">
-                                            <img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
-                                        </div>
+                                        {% if comentario.nombre.avatar_set.first.imagen %}
+                                        
+                                            {% with comentario.nombre.avatar_set.first as avatar %}
+                                            
+                                                <div class="flex-shrink-0">
+                                                    <img src="{{avatar.imagen.url}}" style="height: 50px; border-radius: 100%; width: 50px;">
+                                                </div>
+                                            
+                                            {% endwith %}
+                                        
+                                        {% else %}
+                                        
+                                            <div class="flex-shrink-0">
+                                                <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" style="height: 50px; width: 50px; border-radius: 100%;">
+                                            </div>
+                                            
+                                        {% endif %}
 
                                         <div class="ms-3">
 

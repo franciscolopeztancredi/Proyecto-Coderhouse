@@ -1,12 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Clase Pregunta: Preguntas dentro de la sección Contacto
 class Pregunta(models.Model):
 
-  nombre = models.CharField(max_length=100)
-  email = models.EmailField()
-  telefono = models.IntegerField(blank=True)
+  usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+  telefono = models.IntegerField(blank=True, null=True)
   pregunta = models.TextField()
 
   def __str__(self):
-    return f"{self.nombre}: {self.pregunta}"
+    return f"{self.usuario}: {self.pregunta}"

@@ -8,4 +8,6 @@ urlpatterns = [
   path('logout/', views.logoutUser, name="logout"),
   path('profile/', views.profile, name="profile"),
   path('profile/avatar/eliminar', views.avatarEliminar, name="avatarEliminar"),
+  path('messages/', views.mensajes, name="mensajes"),
+  path('messages/eliminar/<int:num>', views.mensajesEliminar, name="mensajesEliminar"),
 ]

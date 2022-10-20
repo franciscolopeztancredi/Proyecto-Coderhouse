@@ -1,13 +1,70 @@
+<head>
+  <style>
+      footer.pie {
+          position: fixed !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          z-index: 1030 !important;
+      }
+  </style>
+</head>
+
 {% extends "Blog/padre.html" %}
 
 {% block contenido %}
 
-  <div class="col-lg-6 card mt-5 mb-5" style="margin: auto">
+<div class="row">
+
+  <div class="card mt-5 mb-5 col-lg-3 p-0" style="margin: auto auto auto auto">
+
+    <div class="card-header">
+      Información de contacto
+    </div>
+    
+    <div class="card-body">
+
+      <table class="table">
+        <tbody>
+
+          <tr>
+            <th>E-Mail:</th>
+            <td>lopeztancredifrancisco@gmail.com</td>
+          </tr>
+
+          <tr>
+            <th>Teléfono:</th>
+            <td>+54 9 11 1234-5678</td>
+          </tr>
+
+          <tr>
+            <th>Discord:</th>
+            <td>fran#1111</td>
+          </tr>
+
+          <tr>
+            <th>Sitio Web:</th>
+            <td><a href="https://github.com/franciscolopeztancredi" target="_blank" style="color: black">github.com/franciscolopeztancredi</td>
+          </tr>
+
+          <tr>
+            <th>Instagram:</th>
+            <td><a href="https://instagram.com/franlopeztt" target="_blank" style="color: black">instagram.com/franlopeztt</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+  <div class="card mt-5 mb-5 col-lg-5 p-0" style="margin: auto 0px auto auto;">
 
     <div class="card-header">
       Nueva pregunta
     </div>
-
+    
     <div class="card-body input-group">
       <form class="mb-2" method="POST" action="" style="width: 100%"> {% csrf_token %}
 
@@ -15,18 +72,13 @@
           <tbody>
 
             <tr>
-              <th>Nombre</th>
-              <td><input type="text" name="nombre" value="" maxlength="100" required id="id_nombre" style="width: 100%" required></td>
+              <th>Usuario</th>
+              <td><input type="text" name="usuario" value="{{request.user}}" maxlength="100" required id="id_usuario" style="width: 100%" disabled></td>
             </tr>
 
             <tr>
-              <th>E-Mail</th>
-              <td><input type="email" name="email" value="" required id="email" style="width: 100%" required></td>
-            </tr>
-
-            <tr>
-              <th>Telefono</th>
-              <td><input type="number" name="telefono" placeholder="011 1234-5678" required id="telefono" style="width: 100%" required></td>
+              <th>Teléfono <span style="font-weight: lighter;">(opcional)</span></th>
+              <td><input type="number" name="telefono" id="telefono" style="width: 100%"></td>
             </tr>
 
             <tr>
@@ -41,7 +93,60 @@
 
       </form>
     </div>
+    
+  </div>
+
+  <div class="card mt-5 mb-5 col-lg-3 p-0" style="margin: auto auto auto auto">
+
+    <div class="card-header">
+      Preguntas
+    </div>
+    
+    <div class="card-body">
+
+      {% if preguntas %}
+
+          {% for pregunta in preguntas %}
+
+            <div class="d-flex mb-3">
+
+              <div class="flex-shrink-0">
+                
+                {% if pregunta.usuario.avatar_set.first.imagen %}
+
+                  <img src="{{pregunta.usuario.avatar_set.first.imagen.url}}" style="height: 50px; width: 50px; border-radius: 100%;">
+            
+                {% else %}
+
+                  <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" style="height: 50px; width: 50px; border-radius: 100%;">
+
+                {% endif %}
+
+              </div>
+
+              <div class="ms-3">
+
+                  <div style="font-weight: 500">
+                      {{pregunta.usuario}}
+                  </div>
+
+                  {{pregunta.pregunta}}
+
+              </div>
+            
+            </div>
+
+          {% endfor %}
+        
+        {% else %}
+
+        Todavía no hay preguntas. Sé el primero en hacer una.
+
+        {% endif %}
+
+    </div>
 
   </div>
 
+</div>
 {% endblock %}

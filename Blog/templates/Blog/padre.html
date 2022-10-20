@@ -81,17 +81,17 @@
                                     {% endif %}
                                     
                                     <span style="text-decoration: underline">
-                                    {% if request.user.first_name == "" %}{{request.user}}
-                                    {% else %}{{request.user.first_name}}
+                                    {% if request.user.first_name == "" %}{{request.user}}</span>
+                                    {% else %}{{request.user.first_name}}</span>
                                     {% endif %}
-                                    </span>
                                 
                                 </li>
 
                             </button>
 
-                            <ul class="dropdown-menu dropdown-menu-end" style="background: rgba(33, 37, 41, 0.9);">
-                                <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:profile' %}">Editar Usuario</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end" style="background: rgba(33, 37, 41, 0.9); width: 100px;">
+                                <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:mensajes' %}">Inbox</a></li>
+                                <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:profile' %}">Mi perfil</a></li>
                                 <li class="nav-item"><a class="nav-link text-end pe-3" href="{% url 'Users:logout' %}">Cerrar sesión</a></li>
                             </ul>
 
@@ -118,7 +118,7 @@
 
 
 
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-dark pie">
 
         <div class="container">
             <p class="m-0 text-center text-white">Copyright &copy; Francisco López Tancredi 2022</p>

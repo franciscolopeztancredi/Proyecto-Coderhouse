@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Clase Post: Publicaciones dentro de mi blog
 class Post(models.Model):
@@ -18,10 +19,10 @@ class Post(models.Model):
 # Clase Comentario: Comentarios dentro de cada post
 class Comentario(models.Model):
 
-  nombre = models.CharField(max_length=100)
+  nombre = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
   comentario = models.TextField()
   fecha = models.DateTimeField(auto_now_add=True)
   post = models.ForeignKey(Post, null=True, on_delete=models.CASCADE, related_name="comentarios")
 
   def __str__(self):
-    return f"[{self.post.titulo}] {self.nombre}: {self.comentario}"
+    return f"[{self.post.titulo}] {self.comentario}"

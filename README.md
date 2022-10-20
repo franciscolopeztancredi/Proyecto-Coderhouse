@@ -1,17 +1,10 @@
 # Curso de Programación con Python: Coderhouse
-## Entrega Intermedia del Proyecto Final
+## Entrega del Proyecto Final
 ### Alumno: Francisco López Tancredi
 
-Este blog permite a los usuarios registrarse en el blog, leer las publicaciones y comentar en ellas. Adicionalmente, aquellos usuarios con la condición de administrador tienen a su vez la posibilidad de crear publicaciones nuevas, las cuales se muestran automáticamente en la página principal del blog, ordenadas de manera cronológica.
+Estimados,
 
-A su vez, se ha implementado la función de buscar usuarios o entradas de blog (por título).
+Este sitio está dedicado a la experimentación con las funcionalidades de Python haciendo uso de Django.
+Los casos de prueba incluyen una profunda exploración de la página, incluyendo documentación propia del funcionamiento de cada acción de la página e incluso de las experiencias de amigos y familiares (al haberles pedido que creen sus propios usuarios y experimenten en detalle con todo).
 
-#### Instalación
-
-Para correr el servidor, se debe descargar el repositorio de github o clonarlo utilizando
-
-`$ git clone https://github.com/franciscolopeztancredi/Entrega1-LopezTancredi`
-
-Una vez clonado, debe abrirse la carpeta en Visual Studio Code o IDE de su preferencia, y, desde la terminal, ejecutar
-
-`python manage.py runserver`
+Esto, y una explicación más profunda del proyecto puede verse en el siguiente link: 
